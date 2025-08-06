@@ -37,6 +37,11 @@ class Visitor extends Person {
         this.ridesTaken = ridesTaken;
     }
 
+    // Sets variables to CSV formatted string
+    public String toCSV() {
+        return name + "," + email + "," + height + "," + visitorID;
+    }
+
     // Overridden toString
     @Override
     public String toString() {

@@ -10,6 +10,8 @@ class Ride implements RideInterface{
     String rideName;
     boolean rideStatus;
     Employee operatorID;
+    int maxRider;
+    int numOfCycles;
     private ArrayList<Visitor> waitingLine = new ArrayList<>();
     private LinkedList<Visitor> rideHistory = new LinkedList<>();
 
@@ -18,6 +20,8 @@ class Ride implements RideInterface{
         rideName = "Unknown";
         rideStatus = false;
         operatorID = null;
+        maxRider = 0;
+        numOfCycles = 0;
     }
 
     // Initializer constructor
@@ -25,6 +29,8 @@ class Ride implements RideInterface{
         this.rideName = rideName;
         this.rideStatus = rideStatus;
         this.operatorID = operatorID;
+        this.maxRider = 3;
+        this.numOfCycles = 0;
     }
 
     // Getter
@@ -33,17 +39,19 @@ class Ride implements RideInterface{
     }
 
     // Setter
-    public void setRide(String rideName, boolean rideStatus, Employee operatorID) {
+    public void setRide(String rideName, boolean rideStatus, Employee operatorID, int maxRider, int numOfCycles) {
         this.rideName = rideName;
         this.rideStatus = rideStatus;
         this.operatorID = operatorID;
+        this.maxRider = maxRider;
+        this.numOfCycles = numOfCycles;
     }
 
     @Override
     public void addVisitorToQueue(Visitor visitor) {
         if (visitor != null) {
             waitingLine.add(visitor);
-            System.out.println("\n" + visitor.getName() + " added to the waiting queue.");
+            System.out.println("\n" + visitor.getName() + " added to the waiting queue. (" + waitingLine.size() + ") in queue.");
         } else {
             System.out.println("\nError: No visitor is found.");
         }
@@ -72,28 +80,38 @@ class Ride implements RideInterface{
 
     @Override    
     public void runOneCycle() {
-        int rides = 0;
-
-        if (rides > 1) {
-            System.out.println("\nNumber of rides exceeded.");
-        } else {
-            while (rides <= 0) {
-                if (waitingLine.size() > 0) {
-                    Visitor firstVisitor = waitingLine.get(0);
-                    System.out.println("\nRides running.");
-                    System.out.println(firstVisitor.getName() + " is currently riding " + rideName + ".");
-                    firstVisitor.setRidesTaken(firstVisitor.getRidesTaken() + 1);
-                    addVisitorToHistory(firstVisitor);
-                    removeVisitorFromQueue(firstVisitor);
-                    rides++;
-                } else {
-                    System.out.println("\nError: no visitors in queue.");
-                    break;
-                }
-            }
-            System.out.println("\nRide has completed.");
-            System.out.println("Number of ride cycles completed: " + rides);
+        // Checks if operatorID is null
+        if (operatorID == null) {
+            System.out.println("Error: no operator assigned to " + rideName);
+            return;
         }
+
+        // Checks is waitingLine arrayList is empty
+        if (waitingLine.isEmpty()) {
+            System.out.println("\nNo visitors in queue.");
+            return;
+        }
+
+        // Checks if maxRider is greater than 1
+        if (maxRider < 1) {
+            System.out.println("\nError: minimum amount of riders not met.");
+            return;
+        }
+
+        int ridersInCycle = Math.min(maxRider, waitingLine.size()); // Gets the min number. Help from: https://www.w3schools.com/java/ref_math_min.asp
+
+        System.out.println("\nRides is currently running:");
+
+        // Iterates the minimum value times (in this case 3)
+        for (int i = 0; i < ridersInCycle; i++) {
+            Visitor visitor = waitingLine.remove(0);
+            System.out.println("\n" + visitor.getName() + " is currently riding " + rideName + ".");
+
+            visitor.setRidesTaken(visitor.getRidesTaken() + 1);
+            addVisitorToHistory(visitor);
+        }
+        numOfCycles++; // Increments numOfCycles integer
+        System.out.println("\nRide has completed. Number of cycles completed: " + numOfCycles);
     }
 
     @Override
@@ -101,9 +119,9 @@ class Ride implements RideInterface{
         // Checks if visitor is not in rideHistory before adding visitor
         if (!rideHistory.contains(visitor)) {
             rideHistory.add(visitor);
-            System.out.println(visitor.getName() + " added to ride history.");
+            System.out.println(visitor.getName() + " has been added to ride history.");
         } else {
-            System.out.println("\nVisitor is already in ride history.");
+            System.out.println("\nError: " + visitor.getName() + " is already in ride history.");
         }
     }
 
@@ -134,12 +152,13 @@ class Ride implements RideInterface{
     public void printRideHistory() {
         System.out.println("\nRide history: ");
 
+        if (rideHistory.isEmpty()) {
+            System.out.println("\nError: No visitors found in history.");
+            return;
+        }
+
         for (Visitor visitor : rideHistory) {
-            if (rideName != null && !rideName.equals("null")) {
-                System.out.println("\nNo visitors found in history.");
-            } else {
-                System.out.println(visitor.getVisitorID() + " : " + visitor.getName() + " : " + visitor.getRidesTaken() + " rides taken.");
-            }
+            System.out.println(visitor.getVisitorID() + " : " + visitor.getName() + " : " + visitor.getRidesTaken() + " rides taken.");
         }
     }
 

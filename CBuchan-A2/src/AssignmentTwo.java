@@ -1,4 +1,4 @@
-/*
+ /*
  * AssignmentTwo Class
  */
 
@@ -8,13 +8,23 @@ public class AssignmentTwo {
         AssignmentTwo assignment = new AssignmentTwo();
         
         // Assignment parts
+        System.out.println("Part 3:");
         assignment.partThree();
-        assignment.partFourA();
-        assignment.partFourB();
-        assignment.partFive();
-        assignment.partSix();
-        assignment.partSeven();
 
+        System.out.println("\nPart 4A:");
+        assignment.partFourA();
+
+        System.out.println("\nPart 4B:");
+        assignment.partFourB();
+
+        System.out.println("\nPart 5:");
+        assignment.partFive();
+
+        System.out.println("\nPart 6:");
+        assignment.partSix();
+
+        System.out.println("\nPart 7:");
+        assignment.partSeven();
     }
 
     public void partThree(){
@@ -71,7 +81,9 @@ public class AssignmentTwo {
 
     public void partFourB(){
         // Created class objects instances
-        Ride visitorSystem = new Ride(null, false, null);
+        Employee operator = new Employee("Alice", "alice@example.com", 170.5, 102);
+        Ride visitorSystem = new Ride("Tornado Coaster", false, operator);
+        
 
         // Visitors
         Visitor visitor1 = new Visitor("Bob", "bob@example.com", 171, 109);
@@ -108,6 +120,35 @@ public class AssignmentTwo {
     }
 
     public void partFive(){
+        // Created class objects instances
+        Employee operator = new Employee("Bruno", "bruno@example.com", 200, 103);
+        Ride visitorSystem = new Ride("Hyper Coaster", false, operator);
+
+        // Visitors
+        Visitor visitor1 = new Visitor("Randal", "randal@example.com", 171, 1012);
+        Visitor visitor2 = new Visitor("Ruben", "ruben@example.com", 152, 1014);
+        Visitor visitor3 = new Visitor("Derrik", "derrik@example.com", 171, 1013);
+        Visitor visitor4 = new Visitor("Jemma", "jemma@example.com", 165, 1016);
+        Visitor visitor5 = new Visitor("Christopher", "christopher@example.com", 180, 1015);
+
+        // Add visitors to queue
+        visitorSystem.addVisitorToQueue(visitor5);
+        visitorSystem.addVisitorToQueue(visitor1);
+        visitorSystem.addVisitorToQueue(visitor2);
+        visitorSystem.addVisitorToQueue(visitor4);
+        visitorSystem.addVisitorToQueue(visitor3);
+        
+        // Prints visitors in queue
+        visitorSystem.printQueue();
+
+        // Runs one cycle
+        visitorSystem.runOneCycle();
+
+        // Prints all visitors in queue
+        visitorSystem.printQueue();
+
+        // Prints all visitors in collection
+        visitorSystem.printRideHistory();
     }
 
     public void partSix(){
