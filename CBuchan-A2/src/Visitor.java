@@ -12,9 +12,16 @@ class Visitor extends Person {
     }
 
     // Initializer constructor
-    public Visitor(String name, String email, double height, int visitorID) {
+    public Visitor(String name, String email, double height, int visitorID, int ridesTaken) {
         super(name, email, height);
         this.visitorID = visitorID;
+        this.ridesTaken = ridesTaken;
+    }
+
+    // Overridden toString
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Visitor ID: " + visitorID + ", Rides taken: " + ridesTaken;
     }
 
     // Getter
@@ -39,12 +46,6 @@ class Visitor extends Person {
 
     // Sets variables to CSV formatted string
     public String toCSV() {
-        return name + "," + email + "," + height + "," + visitorID;
-    }
-
-    // Overridden toString
-    @Override
-    public String toString() {
-        return "Name: " + name + ", Visitor ID: " + visitorID + ", Rides taken: " + ridesTaken;
+        return name + "," + email + "," + height + "," + visitorID + "," + ridesTaken;
     }
 }

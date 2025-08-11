@@ -22,7 +22,8 @@ public abstract class Person {
     }
 
     // Getter
-    public String getPerson() {
+    @Override
+    public String toString() {
         return "Name: " + name + ", Email: " + email + ", Height:" + height;
     }
 

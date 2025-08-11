@@ -18,7 +18,8 @@ class Employee extends Person {
     }
 
     // Getter
-    public String getEmployee() {
+    @Override
+    public String toString() {
         return "Name: " + name + ", Employee ID: " + ID;
     }
 

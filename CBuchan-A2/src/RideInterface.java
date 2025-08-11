@@ -3,27 +3,23 @@
  */
 
 public interface RideInterface {
-    void addVisitorToQueue(Visitor visitor) {
-    }
 
-    void removeVisitorFromQueue(Visitor visitor) {
-    }
+    // Interface methods without body as they are overridden in inherited class (body removed from prev commits)
+    void addVisitorToQueue(Visitor visitor);
 
-    void printQueue() {
-    }
+    void removeVisitorFromQueue(Visitor visitor);
 
-    void runOneCycle() {
-    }
+    void printQueue();
 
-    void addVisitorToHistory(Visitor visitor) {
-    }
+    void runOneCycle();
 
-    void checkVisitorFromHistory(Visitor visitor) {
-    }
+    void addVisitorToHistory(Visitor visitor);
 
-    void numberOfVisitors() {
-    }
+    void clearRideHistory();
 
-    void printRideHistory() {
-    }
+    void checkVisitorFromHistory(Visitor visitor);
+
+    void numberOfVisitors();
+
+    void printRideHistory();
 }
